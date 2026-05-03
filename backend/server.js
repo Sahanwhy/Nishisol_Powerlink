@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGO_URI)
 // GET all leads
 app.get('/api/leads', async (req, res) => {
     try {
-        const leads = await Lead.find().sort({ createdAt: -1 });
+        const leads = await Lead.find().sort({ submittedAt: -1 });
         res.json(leads);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching leads' });
@@ -145,15 +145,15 @@ app.post("/api/contact", async (req, res) => {
             email,
             inquiry: inquiry || 'General Query',
             message,
-            submittedAt: new Date(),
-            createdAt: new Date()
+            status: 'new',
+            submittedAt: new Date()
         });
         await newLead.save();
 
         // ✅ 2. Send email using Resend
         await resend.emails.send({
             from: "onboarding@resend.dev",
-            to: "greensolarpvg@gmail.com",
+            to: "sazzadurr373@gmail.com",
             subject: "New Lead 🚀",
             html: `
                 <h3>New Lead</h3>
