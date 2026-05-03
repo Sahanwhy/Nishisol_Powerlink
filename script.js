@@ -106,13 +106,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealObserver = new IntersectionObserver(revealOnScroll, revealOptions);
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // 6. FORM HANDLING (SIMULATION)
+    // 6. FORM HANDLING (Connect to Node.js Backend)
     const contactForm = document.getElementById('contactForm');
     const formMsg = document.getElementById('formMsg');
+    const API_URL = 'http://localhost:5000/api/leads';
 
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                inquiry: formData.get('inquiry'),
+                message: formData.get('message')
+            };
             
             // Basic animation for button
             const submitBtn = contactForm.querySelector('.form-submit');
@@ -121,12 +132,26 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
             submitBtn.disabled = true;
 
-            // Simulate API Call
-            setTimeout(() => {
-                formMsg.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent.';
-                formMsg.className = 'form-msg success'; // Use className to clear other classes
-                
-                contactForm.reset();
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    formMsg.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent.';
+                    formMsg.className = 'form-msg success';
+                    contactForm.reset();
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Oops! Something went wrong. Please try again.';
+                formMsg.className = 'form-msg error';
+            } finally {
+                formMsg.style.display = 'block';
                 submitBtn.innerHTML = originalBtnContent;
                 submitBtn.disabled = false;
 
@@ -135,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     formMsg.style.display = 'none';
                     formMsg.className = 'form-msg';
                 }, 5000);
-            }, 1500);
+            }
         });
     }
 
@@ -241,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoSlide();
     }
 
-    // 10. RE-INFORCE SMOOTH SCROLL (For browsers with limited support)
+    // 10. RE-INFORCE SMOOTH SCROLL
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
@@ -261,4 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 11. PAGE VIEW TRACKING
+    const trackView = async () => {
+        try {
+            await fetch('http://localhost:5000/api/views', { method: 'POST' });
+        } catch (err) {
+            console.error('Error tracking view:', err);
+        }
+    };
+    trackView();
 });

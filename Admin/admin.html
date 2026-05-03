@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Nishisol Powerlink</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- LOGIN GATE -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-bg">
+      <div class="login-orb lo1"></div>
+      <div class="login-orb lo2"></div>
+      <div class="login-grid"></div>
+    </div>
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="ll-sun">
+          <div class="ll-core"></div>
+        </div>
+        <div>
+          <div class="ll-name">NISHISOL POWERLINK</div>
+          <div class="ll-sub">Admin Portal</div>
+        </div>
+      </div>
+      <h2>Welcome Back</h2>
+      <p class="login-desc">Sign in to access the admin dashboard</p>
+      <div class="login-form">
+        <div class="lf-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="loginUser" placeholder="Username" autocomplete="off" />
+        </div>
+        <div class="lf-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="loginPass" placeholder="Password" />
+          <button class="toggle-pw" id="togglePw"><i class="fas fa-eye"></i></button>
+        </div>
+        <div id="loginError" class="login-error"></div>
+        <button class="login-btn" id="loginBtn">
+          <span>Sign In</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <p class="login-hint">Default: <strong>admin</strong> / <strong>nishisol2025</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sl-sun">
+          <div class="sl-core"></div>
+          <div class="sl-rays">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="sl-text">
+          <div class="sl-name">NISHISOL</div>
+          <div class="sl-tag">POWERLINK</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-label">MAIN</div>
+        <a href="#" class="nav-item active" data-tab="overview">
+          <i class="fas fa-chart-pie"></i>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="leads">
+          <i class="fas fa-users"></i>
+          <span>Leads</span>
+          <span class="nav-badge" id="leadsBadge">0</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="analytics">
+          <i class="fas fa-chart-line"></i>
+          <span>Analytics</span>
+        </a>
+
+        <div class="nav-label">TOOLS</div>
+        <a href="#" class="nav-item" data-tab="export">
+          <i class="fas fa-file-export"></i>
+          <span>Export Data</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sf-info">
+          <div class="sf-avatar">A</div>
+          <div>
+            <div class="sf-name">Admin</div>
+            <div class="sf-role">Super Admin</div>
+          </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn" title="Logout">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="page-title" id="pageTitle">Overview</div>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-time" id="topbarTime"></div>
+          <div class="topbar-date" id="topbarDate"></div>
+          <button class="notif-btn" id="notifBtn">
+            <i class="fas fa-bell"></i>
+            <span class="notif-dot" id="notifDot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB: OVERVIEW -->
+      <div class="tab-content active" id="tab-overview">
+
+        <div class="welcome-bar">
+          <div>
+            <h1 class="wb-title">Good <span id="greeting"></span>, Admin 👋</h1>
+            <p class="wb-sub">Here's what's happening with Nishisol Powerlink today.</p>
+          </div>
+          <button class="refresh-btn" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stat-cards">
+          <div class="stat-card sc-green">
+            <div class="sc-icon"><i class="fas fa-eye"></i></div>
+            <div class="sc-info">
+              <div class="sc-num" id="stat-views">0</div>
+              <div class="sc-label">Total Page Views</div>
+            </div>
+            <div class="sc-trend up"><i class="fas fa-arrow-up"></i> Live</div>
+          </div>
+          <div class="stat-card sc-yellow">
+            <div class="sc-icon"><i class="fas fa-users"></i></div>
+            <div class="sc-info">
+              <div class="sc-num" id="stat-leads">0</div>
+              <div class="sc-label">Total Leads</div>
+            </div>
+            <div class="sc-trend up" id="trend-leads">+0 today</div>
+          </div>
+          <div class="stat-card sc-blue">
+            <div class="sc-icon"><i class="fas fa-phone"></i></div>
+            <div class="sc-info">
+              <div class="sc-num" id="stat-calls">0</div>
+              <div class="sc-label">Call Inquiries</div>
+            </div>
+            <div class="sc-trend up">This week</div>
+          </div>
+          <div class="stat-card sc-orange">
+            <div class="sc-icon"><i class="fas fa-envelope"></i></div>
+            <div class="sc-info">
+              <div class="sc-num" id="stat-email">0</div>
+              <div class="sc-label">Email Inquiries</div>
+            </div>
+            <div class="sc-trend up">This week</div>
+          </div>
+        </div>
+
+        <!-- CHARTS ROW -->
+        <div class="charts-row">
+          <div class="chart-card cc-wide">
+            <div class="cc-header">
+              <h3>Daily Inquiries (Last 7 Days)</h3>
+              <div class="cc-legend">
+                <span class="leg-dot green"></span> Leads
+              </div>
+            </div>
+            <div class="bar-chart" id="barChart"></div>
+          </div>
+          <div class="chart-card cc-narrow">
+            <div class="cc-header">
+              <h3>Inquiry Types</h3>
+            </div>
+            <div class="donut-wrap">
+              <canvas id="donutChart" width="180" height="180"></canvas>
+              <div class="donut-center" id="donutCenter">–</div>
+            </div>
+            <div class="donut-legend" id="donutLegend"></div>
+          </div>
+        </div>
+
+        <!-- RECENT LEADS TABLE -->
+        <div class="recent-card">
+          <div class="rc-header">
+            <h3>Recent Leads</h3>
+            <a href="#" class="view-all" data-tab="leads">View All →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="leads-table" id="recentTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Inquiry Type</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentTableBody">
+                <tr>
+                  <td colspan="6" class="empty-row"><i class="fas fa-inbox"></i><br>No leads yet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /tab-overview -->
+
+      <!-- TAB: LEADS -->
+      <div class="tab-content" id="tab-leads">
+        <div class="tab-header">
+          <h2>All Leads</h2>
+          <div class="tab-actions">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="leadSearch" placeholder="Search by name, phone..." />
+            </div>
+            <select id="filterInquiry" class="filter-select">
+              <option value="">All Types</option>
+              <option>Residential Solar Installation</option>
+              <option>Commercial Solar Installation</option>
+              <option>PM Surya Ghar Yojana Subsidy</option>
+              <option>AMC &amp; Maintenance</option>
+              <option>General Query</option>
+            </select>
+            <button class="clear-btn" id="clearLeads">
+              <i class="fas fa-trash"></i> Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="leads-count-bar">
+          Showing <span id="leadCount">0</span> leads
+        </div>
+
+        <div class="table-wrap">
+          <table class="leads-table full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Inquiry Type</th>
+                <th>Message</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="allLeadsBody">
+              <tr>
+                <td colspan="9" class="empty-row"><i class="fas fa-inbox"></i><br>No leads yet. Form submissions will
+                  appear here.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- /tab-leads -->
+
+      <!-- TAB: ANALYTICS -->
+      <div class="tab-content" id="tab-analytics">
+        <div class="tab-header">
+          <h2>Analytics</h2>
+        </div>
+        <div class="analytics-grid">
+          <div class="an-card">
+            <div class="an-icon green"><i class="fas fa-eye"></i></div>
+            <h4>Page Views Breakdown</h4>
+            <div class="an-rows" id="pageViewBreakdown">
+              <div class="an-row"><span>Today</span><strong id="pv-today">0</strong></div>
+              <div class="an-row"><span>Yesterday</span><strong id="pv-yesterday">0</strong></div>
+              <div class="an-row"><span>This Week</span><strong id="pv-week">0</strong></div>
+              <div class="an-row"><span>This Month</span><strong id="pv-month">0</strong></div>
+              <div class="an-row total"><span>All Time</span><strong id="pv-total">0</strong></div>
+            </div>
+          </div>
+          <div class="an-card">
+            <div class="an-icon yellow"><i class="fas fa-users"></i></div>
+            <h4>Lead Breakdown</h4>
+            <div class="an-rows" id="leadBreakdown">
+              <div class="an-row"><span>Today</span><strong id="ld-today">0</strong></div>
+              <div class="an-row"><span>Yesterday</span><strong id="ld-yesterday">0</strong></div>
+              <div class="an-row"><span>This Week</span><strong id="ld-week">0</strong></div>
+              <div class="an-row"><span>This Month</span><strong id="ld-month">0</strong></div>
+              <div class="an-row total"><span>All Time</span><strong id="ld-total">0</strong></div>
+            </div>
+          </div>
+          <div class="an-card">
+            <div class="an-icon blue"><i class="fas fa-chart-bar"></i></div>
+            <h4>Top Inquiry Types</h4>
+            <div class="an-rows" id="topInquiries">
+              <div class="an-row empty-row">No data yet</div>
+            </div>
+          </div>
+          <div class="an-card">
+            <div class="an-icon orange"><i class="fas fa-clock"></i></div>
+            <h4>Recent Activity</h4>
+            <div class="activity-feed" id="activityFeed">
+              <div class="af-empty">No recent activity</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tab-analytics -->
+
+      <!-- TAB: EXPORT -->
+      <div class="tab-content" id="tab-export">
+        <div class="tab-header">
+          <h2>Export Data</h2>
+        </div>
+        <div class="export-grid">
+          <div class="export-card">
+            <div class="ex-icon"><i class="fas fa-file-csv"></i></div>
+            <h4>Export Leads as CSV</h4>
+            <p>Download all lead submissions as a spreadsheet-compatible CSV file.</p>
+            <button class="ex-btn green" id="exportCSV">
+              <i class="fas fa-download"></i> Download CSV
+            </button>
+          </div>
+          <div class="export-card">
+            <div class="ex-icon"><i class="fas fa-file-alt"></i></div>
+            <h4>Export as JSON</h4>
+            <p>Download the raw data as a JSON file for integration with other systems.</p>
+            <button class="ex-btn yellow" id="exportJSON">
+              <i class="fas fa-download"></i> Download JSON
+            </button>
+          </div>
+          <div class="export-card">
+            <div class="ex-icon"><i class="fas fa-print"></i></div>
+            <h4>Print Report</h4>
+            <p>Print or save as PDF a formatted report of all leads and analytics.</p>
+            <button class="ex-btn blue" id="printReport">
+              <i class="fas fa-print"></i> Print / Save PDF
+            </button>
+          </div>
+        </div>
+      </div><!-- /tab-export -->
+
+      <!-- TAB: SETTINGS -->
+      <div class="tab-content" id="tab-settings">
+        <div class="tab-header">
+          <h2>Settings</h2>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h4><i class="fas fa-key"></i> Change Password</h4>
+            <div class="sf-group">
+              <label>New Password</label>
+              <input type="password" id="newPass" placeholder="Enter new password" />
+            </div>
+            <div class="sf-group">
+              <label>Confirm Password</label>
+              <input type="password" id="confirmPass" placeholder="Confirm new password" />
+            </div>
+            <button class="settings-btn green" id="savePass">Save Password</button>
+            <div id="passMsg" class="settings-msg"></div>
+          </div>
+          <div class="settings-card">
+            <h4><i class="fas fa-database"></i> Data Management</h4>
+            <p class="settings-p">All form submissions and view counters are stored locally in your browser's
+              localStorage.</p>
+            <div class="data-stat">
+              <span>Total Leads Stored</span>
+              <strong id="storedLeads">0</strong>
+            </div>
+            <div class="data-stat">
+              <span>Total Views Stored</span>
+              <strong id="storedViews">0</strong>
+            </div>
+            <button class="settings-btn red" id="resetAllData">
+              <i class="fas fa-trash"></i> Reset All Data
+            </button>
+          </div>
+          <div class="settings-card">
+            <h4><i class="fas fa-link"></i> Integration Info</h4>
+            <p class="settings-p">To connect your frontend contact form to this dashboard, make sure your
+              <code>script.js</code> saves submissions to <code>localStorage</code> key: <code>nishisol_leads</code>
+            </p>
+            <div class="code-block">
+              <pre>// In your frontend script.js
+const leads = JSON.parse(localStorage
+  .getItem('nishisol_leads') || '[]');
+leads.push(formData);
+localStorage.setItem(
+  'nishisol_leads',
+  JSON.stringify(leads)
+);</pre>
+            </div>
+          </div>
+        </div>
+      </div><!-- /tab-settings -->
+
+    </main>
+  </div>
+
+  <!-- LEAD DETAIL MODAL -->
+  <div class="modal-overlay" id="leadModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Lead Details</h3>
+        <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="modal-btn green" id="markContacted">
+          <i class="fas fa-check"></i> Mark Contacted
+        </button>
+        <button class="modal-btn red" id="deleteLead">
+          <i class="fas fa-trash"></i> Delete Lead
+        </button>
+        <button class="modal-btn wa" id="waLead">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+
+</html>
