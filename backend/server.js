@@ -3,7 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Models
 const Lead = require('./models/Lead');
@@ -148,19 +150,9 @@ app.post("/api/contact", async (req, res) => {
         });
         await newLead.save();
 
-        // ✅ 2. Send email using Zoho SMTP
-        const transporter = nodemailer.createTransport({
-            host: "smtp.zoho.in",
-            port: 465,
-            secure: true,
-            auth: {
-                user: "contact@nishisolpowerlink.com",
-                pass: "nishisol2026"
-            }
-        });
-
-        await transporter.sendMail({
-            from: "contact@nishisolpowerlink.com",
+        // ✅ 2. Send email using Resend
+        await resend.emails.send({
+            from: "onboarding@resend.dev", // temp sender
             to: "contact@nishisolpowerlink.com",
             subject: "New Lead Received 🚀",
             html: `
@@ -171,7 +163,7 @@ app.post("/api/contact", async (req, res) => {
                 <p><b>Inquiry Type:</b> ${inquiry || 'General Query'}</p>
                 <p><b>Message:</b> ${message}</p>
                 <hr>
-                <p><i>Sent from Nishisol Powerlink Backend</i></p>
+                <p><i>Sent from Nishisol Powerlink Backend via Resend</i></p>
             `
         });
 
