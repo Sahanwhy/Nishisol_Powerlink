@@ -152,25 +152,23 @@ app.post("/api/contact", async (req, res) => {
 
         // ✅ 2. Send email using Resend
         await resend.emails.send({
-            from: "onboarding@resend.dev", // temp sender
+            from: "onboarding@resend.dev",
             to: "contact@nishisolpowerlink.com",
-            subject: "New Lead Received 🚀",
+            subject: "New Lead 🚀",
             html: `
-                <h3>New Lead Details</h3>
-                <p><b>Name:</b> ${name}</p>
-                <p><b>Phone:</b> ${phone}</p>
-                <p><b>Email:</b> ${email}</p>
-                <p><b>Inquiry Type:</b> ${inquiry || 'General Query'}</p>
-                <p><b>Message:</b> ${message}</p>
-                <hr>
-                <p><i>Sent from Nishisol Powerlink Backend via Resend</i></p>
+                <h3>New Lead</h3>
+                <p>Name: ${name}</p>
+                <p>Email: ${email}</p>
+                <p>Phone: ${phone}</p>
+                <p>Inquiry: ${inquiry}</p>
+                <p>Message: ${message}</p>
             `
         });
 
-        res.json({ success: true, message: "Lead saved and email sent! 🚀" });
+        res.json({ success: true });
     } catch (error) {
-        console.error('❌ Error in /api/contact:', error);
-        res.status(500).json({ error: "Something went wrong" });
+        console.error(error);
+        res.status(500).json({ error: "Failed" });
     }
 });
 
