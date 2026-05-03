@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. FORM HANDLING (Connect to Node.js Backend)
     const contactForm = document.getElementById('contactForm');
     const formMsg = document.getElementById('formMsg');
-    const API_URL = 'http://localhost:5000/api/leads';
+    const API_URL = 'https://nishisol-powerlink.onrender.com/api/contact';
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 11. PAGE VIEW TRACKING
     const trackView = async () => {
         try {
-            await fetch('http://localhost:5000/api/views', { method: 'POST' });
+            await fetch('https://nishisol-powerlink.onrender.com/api/views', { method: 'POST' });
         } catch (err) {
             console.error('Error tracking view:', err);
         }

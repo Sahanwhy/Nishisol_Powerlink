@@ -13,7 +13,13 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
+
+// --- ROOT ROUTE (Sanity Check) ---
+app.get('/', (req, res) => {
+    res.send('Backend running 🚀');
+});
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -121,6 +127,19 @@ app.delete('/api/views', async (req, res) => {
         res.json({ message: 'Views reset' });
     } catch (error) {
         res.status(500).json({ message: 'Error resetting views' });
+    }
+});
+
+// --- NEW CONTACT TEST ROUTE ---
+app.post("/api/contact", async (req, res) => {
+    try {
+        console.log("📩 Received Contact Data:", req.body);
+        const newLead = new Lead(req.body);
+        await newLead.save();
+        res.json({ message: "Data received successfully ✅" });
+    } catch (error) {
+        console.error('❌ Error saving contact lead:', error);
+        res.status(500).json({ error: error.message });
     }
 });
 

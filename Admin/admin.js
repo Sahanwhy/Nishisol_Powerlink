@@ -15,7 +15,7 @@ const STORAGE_KEYS = {
 };
 
 const COLORS = ['#22C55E', '#FFD600', '#3B82F6', '#F97316', '#EC4899', '#8B5CF6'];
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://nishisol-powerlink.onrender.com/api';
 
 let state = {
   leads: [],
