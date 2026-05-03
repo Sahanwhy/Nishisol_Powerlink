@@ -281,7 +281,6 @@ function switchTab(tabId) {
 
   if (tabId === 'leads') renderAllLeads();
   if (tabId === 'analytics') renderAnalytics();
-  if (tabId === 'settings') renderSettings();
 }
 
 // ─── LOAD ALL ────────────────────────────────────────────────
@@ -314,7 +313,6 @@ async function loadAll() {
   // Auto-refresh active tab content
   if (state.activeTab === 'leads') renderAllLeads();
   if (state.activeTab === 'analytics') renderAnalytics();
-  if (state.activeTab === 'settings') renderSettings();
 }
 
 // ─── RECENT TABLE ────────────────────────────────────────────
@@ -529,39 +527,6 @@ function renderAnalytics() {
   `).join('');
 }
 
-// ─── SETTINGS ────────────────────────────────────────────────
-function renderSettings() {
-  $('storedLeads').textContent = state.leads.length;
-  $('storedViews').textContent = state.views;
-}
-
-function savePassword() {
-  const np = $('newPass').value;
-  const cp = $('confirmPass').value;
-  const msg = $('passMsg');
-  if (!np) { msg.textContent = 'Enter a password.'; msg.className = 'settings-msg err'; return; }
-  if (np !== cp) { msg.textContent = 'Passwords do not match.'; msg.className = 'settings-msg err'; return; }
-  localStorage.setItem('nishisol_admin_pass', np);
-  $('newPass').value = ''; $('confirmPass').value = '';
-  msg.textContent = '✓ Password updated successfully!';
-  msg.className = 'settings-msg ok';
-  setTimeout(() => msg.textContent = '', 3000);
-}
-
-async function resetAllData() {
-  if (!confirm('Are you sure? This will delete ALL leads and view data permanently.')) return;
-  try {
-    await Promise.all([
-      fetch(`${API_BASE}/leads`, { method: 'DELETE' }),
-      fetch(`${API_BASE}/views`, { method: 'DELETE' })
-    ]);
-    await loadAll();
-    renderSettings();
-    showToast('All data cleared.', 'info');
-  } catch (err) {
-    showToast('Failed to reset data', 'error');
-  }
-}
 
 async function clearLeads() {
   if (!confirm('Delete all leads? This cannot be undone.')) return;

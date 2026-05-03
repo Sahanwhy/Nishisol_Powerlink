@@ -23,9 +23,7 @@
     </div>
     <div class="login-card">
       <div class="login-logo">
-        <div class="ll-sun">
-          <div class="ll-core"></div>
-        </div>
+        <img src="../images/logo.jpg" alt="Nishisol Logo" class="ll-logo-img">
         <div>
           <div class="ll-name">NISHISOL POWERLINK</div>
           <div class="ll-sub">Admin Portal</div>
@@ -59,13 +57,7 @@
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
-        <div class="sl-sun">
-          <div class="sl-core"></div>
-          <div class="sl-rays">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-          </div>
-        </div>
+        <img src="../images/logo.jpg" alt="Nishisol Logo" class="sl-logo-img">
         <div class="sl-text">
           <div class="sl-name">NISHISOL</div>
           <div class="sl-tag">POWERLINK</div>
@@ -92,10 +84,6 @@
         <a href="#" class="nav-item" data-tab="export">
           <i class="fas fa-file-export"></i>
           <span>Export Data</span>
-        </a>
-        <a href="#" class="nav-item" data-tab="settings">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
         </a>
       </nav>
 
@@ -365,59 +353,6 @@
         </div>
       </div><!-- /tab-export -->
 
-      <!-- TAB: SETTINGS -->
-      <div class="tab-content" id="tab-settings">
-        <div class="tab-header">
-          <h2>Settings</h2>
-        </div>
-        <div class="settings-grid">
-          <div class="settings-card">
-            <h4><i class="fas fa-key"></i> Change Password</h4>
-            <div class="sf-group">
-              <label>New Password</label>
-              <input type="password" id="newPass" placeholder="Enter new password" />
-            </div>
-            <div class="sf-group">
-              <label>Confirm Password</label>
-              <input type="password" id="confirmPass" placeholder="Confirm new password" />
-            </div>
-            <button class="settings-btn green" id="savePass">Save Password</button>
-            <div id="passMsg" class="settings-msg"></div>
-          </div>
-          <div class="settings-card">
-            <h4><i class="fas fa-database"></i> Data Management</h4>
-            <p class="settings-p">All form submissions and view counters are stored locally in your browser's
-              localStorage.</p>
-            <div class="data-stat">
-              <span>Total Leads Stored</span>
-              <strong id="storedLeads">0</strong>
-            </div>
-            <div class="data-stat">
-              <span>Total Views Stored</span>
-              <strong id="storedViews">0</strong>
-            </div>
-            <button class="settings-btn red" id="resetAllData">
-              <i class="fas fa-trash"></i> Reset All Data
-            </button>
-          </div>
-          <div class="settings-card">
-            <h4><i class="fas fa-link"></i> Integration Info</h4>
-            <p class="settings-p">To connect your frontend contact form to this dashboard, make sure your
-              <code>script.js</code> saves submissions to <code>localStorage</code> key: <code>nishisol_leads</code>
-            </p>
-            <div class="code-block">
-              <pre>// In your frontend script.js
-const leads = JSON.parse(localStorage
-  .getItem('nishisol_leads') || '[]');
-leads.push(formData);
-localStorage.setItem(
-  'nishisol_leads',
-  JSON.stringify(leads)
-);</pre>
-            </div>
-          </div>
-        </div>
-      </div><!-- /tab-settings -->
 
     </main>
   </div>

@@ -92,21 +92,11 @@ code { font-family: 'Courier New', monospace; font-size: 0.82rem; background: rg
   display: flex; align-items: center; gap: 14px;
   margin-bottom: 32px;
 }
-.ll-sun {
-  width: 48px; height: 48px;
-  background: var(--yellow);
-  border-radius: 50%;
-  border: 3px solid #1B6B2F;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 0 20px rgba(255,214,0,0.4);
-  animation: llPulse 2s ease-in-out infinite;
-}
-@keyframes llPulse { 0%,100%{box-shadow:0 0 20px rgba(255,214,0,0.4);} 50%{box-shadow:0 0 35px rgba(255,214,0,0.7);} }
-.ll-core {
-  width: 18px; height: 18px;
-  background: #1B6B2F;
-  border-radius: 50%;
+.ll-logo-img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .ll-name {
   font-family: var(--font-h);
@@ -201,39 +191,12 @@ code { font-family: 'Courier New', monospace; font-size: 0.82rem; background: rg
   padding: 24px 20px;
   border-bottom: 1px solid var(--border);
 }
-.sl-sun {
-  width: 40px; height: 40px;
-  background: var(--yellow);
-  border-radius: 50%;
-  border: 2px solid #1B6B2F;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(255,214,0,0.3);
+.sl-logo-img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
 }
-.sl-core {
-  width: 13px; height: 13px;
-  background: #1B6B2F;
-  border-radius: 50%; z-index: 2;
-}
-.sl-rays {
-  position: absolute; inset: 3px;
-  animation: rotateSlow 8s linear infinite;
-}
-.sl-rays span {
-  position: absolute; width: 2px; height: 5px;
-  background: #1B6B2F; border-radius: 2px;
-  left: 50%; transform-origin: 50% 14px;
-  margin-left: -1px;
-}
-.sl-rays span:nth-child(1){transform:rotate(0deg);}
-.sl-rays span:nth-child(2){transform:rotate(45deg);}
-.sl-rays span:nth-child(3){transform:rotate(90deg);}
-.sl-rays span:nth-child(4){transform:rotate(135deg);}
-.sl-rays span:nth-child(5){transform:rotate(180deg);}
-.sl-rays span:nth-child(6){transform:rotate(225deg);}
-.sl-rays span:nth-child(7){transform:rotate(270deg);}
-.sl-rays span:nth-child(8){transform:rotate(315deg);}
-@keyframes rotateSlow { to{transform:rotate(360deg);} }
 
 .sl-name {
   font-family: var(--font-h);
