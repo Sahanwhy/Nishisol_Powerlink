@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGO_URI)
 // GET all leads
 app.get('/api/leads', async (req, res) => {
     try {
-        const leads = await Lead.find().sort({ submittedAt: -1 });
+        const leads = await Lead.find().sort({ createdAt: -1 });
         res.json(leads);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching leads' });
@@ -145,8 +145,8 @@ app.post("/api/contact", async (req, res) => {
             email,
             inquiry: inquiry || 'General Query',
             message,
-            status: 'new',
-            submittedAt: new Date()
+            submittedAt: new Date(),
+            createdAt: new Date()
         });
         await newLead.save();
 
