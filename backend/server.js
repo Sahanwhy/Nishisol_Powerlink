@@ -153,7 +153,7 @@ app.post("/api/contact", async (req, res) => {
         // ✅ 2. Send email using Resend
         await resend.emails.send({
             from: "onboarding@resend.dev",
-            to: "sahanhasn205@gmail.com",
+            to: "greensolarpvg@gmail.com",
             subject: "New Lead 🚀",
             html: `
                 <h3>New Lead</h3>
