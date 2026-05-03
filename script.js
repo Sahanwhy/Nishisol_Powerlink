@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             // Get form data
             const formData = new FormData(contactForm);
             const data = {
@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 inquiry: formData.get('inquiry'),
                 message: formData.get('message')
             };
-            
+
             // Basic animation for button
             const submitBtn = contactForm.querySelector('.form-submit');
             const originalBtnContent = submitBtn.innerHTML;
-            
+
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
             submitBtn.disabled = true;
 
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 8. ACTIVE NAV LINK ON SCROLL
     const sections = document.querySelectorAll('section[id]');
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
         sections.forEach(section => {
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showSlide = (index) => {
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
-        
+
         if (slides[index]) slides[index].classList.add('active');
         if (dots[index]) dots[index].classList.add('active');
         currentSlide = index;
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();

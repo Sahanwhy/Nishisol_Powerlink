@@ -6,18 +6,13 @@ const leadSchema = new mongoose.Schema({
     email: String,
     inquiry: String,
     message: String,
-    status: {
-        type: String,
-        default: "new"
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    // Keep submittedAt for compatibility with existing dashboard
     submittedAt: {
         type: Date,
         default: Date.now
+    },
+    status: {
+        type: String,
+        default: "new"
     }
 });
 

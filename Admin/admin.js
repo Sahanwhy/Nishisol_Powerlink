@@ -11,7 +11,7 @@ const CREDENTIALS = {
 };
 
 const STORAGE_KEYS = {
-  session:  'nishisol_admin_session'
+  session: 'nishisol_admin_session'
 };
 
 const COLORS = ['#22C55E', '#FFD600', '#3B82F6', '#F97316', '#EC4899', '#8B5CF6'];
@@ -63,7 +63,7 @@ async function fetchViews() {
 
 function getActivity() {
   const activities = [];
-  
+
   // Add leads to activity
   state.leads.slice(-5).forEach(l => {
     activities.push({
@@ -106,7 +106,7 @@ function isYesterday(d) {
 function isThisWeek(d) {
   const now = new Date(), date = new Date(d);
   const startOfWeek = new Date(now); startOfWeek.setDate(now.getDate() - now.getDay());
-  startOfWeek.setHours(0,0,0,0);
+  startOfWeek.setHours(0, 0, 0, 0);
   return date >= startOfWeek;
 }
 function isThisMonth(d) {
@@ -276,7 +276,7 @@ function switchTab(tabId) {
   const tab = $(`tab-${tabId}`);
   if (tab) tab.classList.add('active');
 
-  const titles = { overview:'Overview', leads:'All Leads', analytics:'Analytics', export:'Export Data', settings:'Settings' };
+  const titles = { overview: 'Overview', leads: 'All Leads', analytics: 'Analytics', export: 'Export Data', settings: 'Settings' };
   $('pageTitle').textContent = titles[tabId] || tabId;
 
   if (tabId === 'leads') renderAllLeads();
@@ -431,7 +431,7 @@ function renderDonut(leads) {
     typeCounts[t] = (typeCounts[t] || 0) + 1;
   });
 
-  const entries = Object.entries(typeCounts).sort((a,b) => b[1]-a[1]);
+  const entries = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
   const total = leads.length;
 
   ctx.clearRect(0, 0, 180, 180);
@@ -497,7 +497,7 @@ function renderAnalytics() {
     const t = l.inquiry || 'General Query';
     typeCounts[t] = (typeCounts[t] || 0) + 1;
   });
-  const entries = Object.entries(typeCounts).sort((a,b) => b[1]-a[1]);
+  const entries = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
   const shortLabels = { 'Residential Solar Installation': 'Residential', 'Commercial Solar Installation': 'Commercial', 'PM Surya Ghar Yojana Subsidy': 'Subsidy', 'AMC & Maintenance': 'AMC', 'General Query': 'General' };
 
   $('topInquiries').innerHTML = entries.length
