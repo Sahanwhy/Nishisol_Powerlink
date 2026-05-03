@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 
 // Models
 const Lead = require('./models/Lead');
@@ -133,13 +134,51 @@ app.delete('/api/views', async (req, res) => {
 // --- NEW CONTACT TEST ROUTE ---
 app.post("/api/contact", async (req, res) => {
     try {
-        console.log("📩 Received Contact Data:", req.body);
-        const newLead = new Lead(req.body);
+        const { name, phone, email, inquiry, message } = req.body;
+
+        // ✅ 1. Save to MongoDB
+        const newLead = new Lead({
+            name,
+            phone,
+            email,
+            inquiry: inquiry || 'General Query',
+            message,
+            status: 'new',
+            submittedAt: new Date()
+        });
         await newLead.save();
-        res.json({ message: "Data received successfully ✅" });
+
+        // ✅ 2. Send email using Zoho SMTP
+        const transporter = nodemailer.createTransport({
+            host: "smtp.zoho.in",
+            port: 465,
+            secure: true,
+            auth: {
+                user: "contact@nishisolpowerlink.com",
+                pass: "nishisol2026"
+            }
+        });
+
+        await transporter.sendMail({
+            from: "contact@nishisolpowerlink.com",
+            to: "contact@nishisolpowerlink.com",
+            subject: "New Lead Received 🚀",
+            html: `
+                <h3>New Lead Details</h3>
+                <p><b>Name:</b> ${name}</p>
+                <p><b>Phone:</b> ${phone}</p>
+                <p><b>Email:</b> ${email}</p>
+                <p><b>Inquiry Type:</b> ${inquiry || 'General Query'}</p>
+                <p><b>Message:</b> ${message}</p>
+                <hr>
+                <p><i>Sent from Nishisol Powerlink Backend</i></p>
+            `
+        });
+
+        res.json({ success: true, message: "Lead saved and email sent! 🚀" });
     } catch (error) {
-        console.error('❌ Error saving contact lead:', error);
-        res.status(500).json({ error: error.message });
+        console.error('❌ Error in /api/contact:', error);
+        res.status(500).json({ error: "Something went wrong" });
     }
 });
 
