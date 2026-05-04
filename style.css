@@ -973,6 +973,34 @@ img {
     animation-delay: 1s;
 }
 
+.fs3 {
+    top: 40%;
+    left: -10%;
+    animation-delay: 0.5s;
+    border-color: var(--green-light);
+    color: var(--green-light);
+}
+
+.badge-dot.pulse {
+    box-shadow: 0 0 10px var(--yellow);
+    animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 214, 0, 0.7);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 10px rgba(255, 214, 0, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 214, 0, 0);
+    }
+}
+
 @keyframes floatBob {
 
     0%,
@@ -1261,6 +1289,103 @@ img {
     font-size: 0.85rem;
     color: var(--gray);
     line-height: 1.5;
+}
+
+/* ===================== TEAM SECTION ===================== */
+.team-section {
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(27, 107, 47, 0.1);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+}
+
+/* Position CEO in the middle on Desktop */
+@media (min-width: 1025px) {
+    .team-card:nth-child(1) { order: 2; } /* Raishma (CEO) */
+    .team-card:nth-child(2) { order: 1; } /* Tarjina */
+    .team-card:nth-child(3) { order: 3; } /* Ramisha */
+}
+
+.team-card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--light-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-green);
+    border-color: var(--green-light);
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+}
+
+.team-card:hover::before {
+    transform: scaleX(1);
+}
+
+.team-img-wrap {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--off-white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s;
+    position: relative;
+}
+
+.team-card:hover .team-img-wrap {
+    transform: scale(1.05);
+    border-color: var(--yellow);
+    box-shadow: 0 15px 40px rgba(255, 214, 0, 0.3);
+}
+
+.team-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.team-info h3 {
+    font-family: var(--font-cond);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 8px;
+}
+
+.team-info .role {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* ===================== SERVICES ===================== */
@@ -2182,6 +2307,11 @@ img {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2221,6 +2351,17 @@ img {
     .contact-form-wrap {
         padding: 28px 20px;
     }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .team-img-wrap {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2257,5 +2398,14 @@ img {
 
     .subsidy-main-card {
         padding: 32px 24px;
+    }
+
+    .team-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .team-card {
+        padding: 30px 20px;
     }
 }
