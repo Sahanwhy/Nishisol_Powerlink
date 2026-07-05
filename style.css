@@ -2250,8 +2250,83 @@ img {
     transform: translateY(-4px);
 }
 
+/* ===================== OFFICE GALLERY ===================== */
+.gallery-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.gallery-main {
+    border-radius: 24px;
+    overflow: hidden;
+    height: 100%;
+    min-height: 400px;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.gallery-main img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-main:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-sub {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px;
+}
+
+.gallery-item {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    min-height: 200px;
+    box-shadow: var(--shadow);
+}
+
+.gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-main {
+        min-height: 300px;
+    }
+
     .hero {
         flex-direction: column;
         text-align: center;
